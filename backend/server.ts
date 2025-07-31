@@ -21,16 +21,22 @@ const dummyUser: UserModel = {
   updated_at: new Date().toISOString(),
 };
 
+
 app.post('/login', (req: Request, res: Response) => {
   const { email, password } = req.body as FormRequestData;
 
   // Dummy authentication logic
   if (email === dummyUser.email && password === 'password123') {
+    const now = new Date();
+    const accessTokenExpires = new Date(now.getTime() + 15 * 60 * 1000); // 15 minutes
+    const refreshTokenExpires = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days
     const response: FormResponseData = {
       success: true,
       message: 'Login successful',
       access_token: 'dummy-access-token',
+      access_token_expires_at: accessTokenExpires.toISOString(),
       refresh_token: 'dummy-refresh-token',
+      refresh_token_expires_at: refreshTokenExpires.toISOString(),
       user: dummyUser,
     };
     res.json(response);
@@ -44,16 +50,22 @@ app.post('/login', (req: Request, res: Response) => {
 });
 
 
+
 app.post('/refresh-token', (req: Request, res: Response) => {
   const { refresh_token } = req.body as RefreshTokenRequest;
 
   // Dummy refresh logic: always succeed if refresh_token is present in body
   if (refresh_token) {
+    const now = new Date();
+    const accessTokenExpires = new Date(now.getTime() + 15 * 60 * 1000); // 15 minutes
+    const refreshTokenExpires = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days
     const response: RefreshTokenResponse = {
       success: true,
       message: 'Token refreshed successfully',
       access_token: 'dummy-new-access-token',
+      access_token_expires_at: accessTokenExpires.toISOString(),
       refresh_token: 'dummy-new-refresh-token',
+      refresh_token_expires_at: refreshTokenExpires.toISOString(),
     };
     res.json(response);
   } else {

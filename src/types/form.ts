@@ -13,7 +13,9 @@ export interface FormResponseData {
     success: boolean;
     message?: string;
     access_token?: string;
+    access_token_expires_at?: string; // ISO string
     refresh_token?: string;
+    refresh_token_expires_at?: string; // ISO string
     user?: UserModel;
 }
 
@@ -36,5 +38,7 @@ export interface RefreshTokenResponse {
     success: boolean;
     message?: string;
     access_token?: string;
+    access_token_expires_at?: string; // ISO string
     refresh_token?: string;
+    refresh_token_expires_at?: string; // ISO string
 }

@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { AuthApi } from "@/api/auth";
 import { register } from "module";
 import { Logger } from "@/util/Logger";
+import { useAuth } from "@/hooks/useAuth";
 
 
 export default function UtilPage() {
@@ -15,6 +16,7 @@ export default function UtilPage() {
         email: '',
         password: ''
     });
+    const { user, accessToken, refreshToken, accessTokenExpiresAt, refreshTokenExpiresAt, isAuthenticated, login, logout, refresh, setTokens } = useAuth();
 
     const [loading, setLoading] = useState<{ id: number | string}>({ id: 0 });
 
